@@ -1,15 +1,21 @@
-package dip
+package semdip
 
-type EmailService struct{}
+type MySQLConnection struct{}
 
-func (e *EmailService) Send(to string, message string) {
-	// Send email
+func NewMySQLConnection() *MySQLConnection {
+	return &MySQLConnection{}
 }
 
-type NotificationService struct {
-	emailService *EmailService
+func (conn *MySQLConnection) Connect() {
+	/* ... */
 }
 
-func (n *NotificationService) Notify(to string, message string) {
-	n.emailService.Send(to, message)
+type PasswordReminder struct {
+	dbConnection *MySQLConnection
+}
+
+func NewPasswordReminder() *PasswordReminder {
+	return &PasswordReminder{
+		dbConnection: NewMySQLConnection(),
+	}
 }

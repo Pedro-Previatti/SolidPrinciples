@@ -1,25 +1,33 @@
-package dip
+package comdip
 
-type MessageSender interface {
-	Send(to string, message string)
+type DBConnectionInterface interface {
+	Connect()
 }
 
-type EmailServiceDIP struct{}
+type MySQLConnection struct{}
 
-func (e *EmailServiceDIP) Send(to string, message string) {
-	// Send email
+func (conn *MySQLConnection) Connect() {
+	/* ... */
 }
 
-type SMSService struct{}
+type OracleConnection struct{}
 
-func (s *SMSService) Send(to string, message string) {
-	// Send SMS
+func (conn *OracleConnection) Connect() {
+	/* ... */
 }
 
-type NotificationServiceDIP struct {
-	messageSender MessageSender
+type SQLServerConnection struct{}
+
+func (conn *SQLServerConnection) Connect() {
+	/* ... */
 }
 
-func (n *NotificationServiceDIP) Notify(to string, message string) {
-	n.messageSender.Send(to, message)
+type PasswordReminder struct {
+	dbConnection DBConnectionInterface
+}
+
+func NewPasswordReminder(dbConnection DBConnectionInterface) *PasswordReminder {
+	return &PasswordReminder{
+		dbConnection: dbConnection,
+	}
 }
